@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
 
-const databaseConfig = require('../config/database');
+import databaseConfig from 'config/database';
 
 const models = [];
 
@@ -12,7 +12,12 @@ class Database {
   }
 
   init(): void {
-    this.connection = new Sequelize(databaseConfig);
+    this.connection = new Sequelize(
+      databaseConfig.database,
+      databaseConfig.username,
+      databaseConfig.password,
+      databaseConfig,
+    );
   }
 }
 
