@@ -1,8 +1,11 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize, Options } from 'sequelize';
 
 import databaseConfig from 'config/database';
+import User from '../app/models/User';
 
-const models = [];
+const models = [User];
+
+const { database, username, password } = databaseConfig;
 
 class Database {
   public connection: Sequelize;
@@ -13,11 +16,13 @@ class Database {
 
   init(): void {
     this.connection = new Sequelize(
-      databaseConfig.database,
-      databaseConfig.username,
-      databaseConfig.password,
-      databaseConfig,
+      database,
+      username,
+      password,
+      databaseConfig as Options,
     );
+
+    models.map((model) => model.init(this.connection));
   }
 }
 

@@ -1,17 +1,29 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
 
-class User extends Model {
+interface UserInterface {
+  id: number;
+  name: string;
+  email: string;
+  password: string;
+  password_hash: string;
+}
+
+class User extends Model<UserInterface> {
+  public id!: number;
+
   public name!: string;
 
   public email!: string;
 
   public password!: string;
 
-  public password_has!: string;
+  public password_hash!: string;
 
-  static init(sequelize: Sequelize.Sequelize) {
-    super.init(
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public static init(sequelize: any) {
+    super.init.call(
+      this,
       {
         name: Sequelize.STRING,
         email: Sequelize.STRING,
@@ -23,7 +35,7 @@ class User extends Model {
       },
     );
 
-    this.addHook('beforeSave', async (user) => {
+    this.addHook('beforeSave', async (user: User) => {
       if (user.password) {
         user.password_hash = await bcrypt.hash(user.password, 8);
       }
