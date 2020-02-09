@@ -9,11 +9,11 @@ class App {
   public constructor() {
     this.server = express();
 
+    this.middlewares();
     this.routes();
-    this.middleware();
   }
 
-  private middleware(): void {
+  private middlewares(): void {
     this.server.use(express.json());
   }
 
