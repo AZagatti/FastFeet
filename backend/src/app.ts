@@ -1,24 +1,25 @@
 import express from 'express';
 
 import routes from './routes';
+import './database';
 
 class App {
-  public express: express.Application;
+  public server: express.Application;
 
   public constructor() {
-    this.express = express();
+    this.server = express();
 
+    this.middlewares();
     this.routes();
-    this.middleware();
   }
 
-  private middleware(): void {
-    this.express.use(express.json());
+  private middlewares(): void {
+    this.server.use(express.json());
   }
 
   private routes(): void {
-    this.express.use(routes);
+    this.server.use(routes);
   }
 }
 
-export default new App().express;
+export default new App().server;
