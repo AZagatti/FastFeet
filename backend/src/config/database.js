@@ -1,9 +1,8 @@
 module.exports = {
-  database: 'fastfeet',
-  username: 'postgres',
-  password: 'docker',
-  host: 'localhost',
-  port: 5432,
+  database: process.env.DATABASE || '',
+  username: process.env.USERNAME || '',
+  password: process.env.PASSWORD || '',
+  host: process.env.HOST,
   dialect: 'postgres',
   define: {
     timestamps: 'true',
