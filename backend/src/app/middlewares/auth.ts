@@ -4,10 +4,6 @@ import { promisify } from 'util';
 
 import authConfig from '../../config/auth';
 
-export interface RequestOptions extends Request {
-  userId: string;
-}
-
 export default async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 
