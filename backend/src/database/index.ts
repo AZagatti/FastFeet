@@ -2,8 +2,9 @@ import { Sequelize, Options } from 'sequelize';
 
 import databaseConfig from 'config/database';
 import User from '../app/models/User';
+import Recipient from '../app/models/Recipient';
 
-const models = [User];
+const models = [User, Recipient];
 
 const { database, username, password } = databaseConfig;
 
