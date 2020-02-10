@@ -8,11 +8,7 @@ export interface RequestOptions extends Request {
   userId: string;
 }
 
-export default async (
-  req: RequestOptions,
-  res: Response,
-  next: NextFunction,
-) => {
+export default async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader) {
@@ -22,9 +18,9 @@ export default async (
   const [, token] = authHeader.split(' ');
 
   try {
-    const decoded: any = await promisify(jwt.verify)(token, authConfig.secret);
+    const { id }: any = await promisify(jwt.verify)(token, authConfig.secret);
 
-    req.userId = decoded.id;
+    req.userId = id;
 
     return next();
   } catch (err) {
