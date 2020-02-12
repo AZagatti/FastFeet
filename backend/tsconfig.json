@@ -15,7 +15,7 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
-    "typeRoots": ["node_modules/@types", "src/@types"]
+    "typeRoots": ["node_modules/@types", "src/typings"]
     // "paths": {
     //   "@config/*": ["config/*"],
     //   "@services/*": ["services/*"],

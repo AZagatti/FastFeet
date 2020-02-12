@@ -3,16 +3,6 @@ import * as Yup from 'yup';
 
 import User from 'app/models/User';
 
-// interface Body extends ReadableStream<Uint8Array> {
-//   email: string;
-//   password: string;
-// }
-
-// export interface RequestOptions extends Request {
-//   userId: string;
-//   body: Body;
-// }
-
 class UserController {
   public async store(req: Request, res: Response): Promise<Response> {
     const schema = Yup.object().shape({

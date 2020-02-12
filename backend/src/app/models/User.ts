@@ -7,6 +7,8 @@ interface UserInterface {
   email: string;
   password: string;
   password_hash: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 class User extends Model<UserInterface> {
@@ -19,6 +21,10 @@ class User extends Model<UserInterface> {
   public password!: string;
 
   public password_hash!: string;
+
+  public readonly created_at!: Date;
+
+  public readonly updated_at!: Date;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static init(sequelize: any) {

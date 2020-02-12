@@ -30,9 +30,9 @@ class Recipient extends Model<RecipientInterface> {
 
   public zip_code!: string;
 
-  public created_at!: Date;
+  public readonly created_at!: Date;
 
-  public updated_at!: Date;
+  public readonly updated_at!: Date;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static init(sequelize: any) {
