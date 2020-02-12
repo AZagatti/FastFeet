@@ -6,8 +6,6 @@ import Recipient from '../app/models/Recipient';
 
 const models = [User, Recipient];
 
-const { database, username, password } = databaseConfig;
-
 class Database {
   public connection: Sequelize;
 
@@ -16,12 +14,7 @@ class Database {
   }
 
   init(): void {
-    this.connection = new Sequelize(
-      database,
-      username,
-      password,
-      databaseConfig as Options,
-    );
+    this.connection = new Sequelize(databaseConfig as Options);
 
     models.map((model) => model.init(this.connection));
   }
