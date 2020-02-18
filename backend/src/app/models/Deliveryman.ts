@@ -1,7 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 
-interface IModels {
-  File?: Model;
+interface IAssociable {
+  associate: (model: any) => void;
 }
 
 interface IDeliveryman {
@@ -46,7 +46,7 @@ class Deliveryman extends Model<IDeliveryman> {
     return this;
   }
 
-  static associate(models: IModels) {
+  public static associate(models: any) {
     this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
   }
 }
