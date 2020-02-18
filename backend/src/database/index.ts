@@ -6,7 +6,7 @@ import Recipient from '../app/models/Recipient';
 import Deliveryman from '../app/models/Deliveryman';
 import File from '../app/models/File';
 
-export const models = [Admin, Recipient, Deliveryman, File];
+const models = [Admin, Recipient, Deliveryman, File];
 
 class Database {
   public connection: Sequelize;
@@ -21,7 +21,8 @@ class Database {
     models
       .map((model) => model.init(this.connection))
       .map(
-        (model) => model.associate && model.associate(this.connection.models),
+        (model: any) =>
+          model.associate && model.associate(this.connection.models),
       );
   }
 }

@@ -20,7 +20,7 @@ class File extends Model<IFile> {
   public readonly updated_at!: Date;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static init(sequelize: any) {
+  public static init(sequelize: any) {
     super.init.call(
       this,
       {
@@ -28,7 +28,7 @@ class File extends Model<IFile> {
         path: Sequelize.STRING,
         url: {
           type: Sequelize.VIRTUAL,
-          get(): string {
+          get(this: any): string {
             return `${process.env.APP_URL}/files/${this.path}`;
           },
         },
