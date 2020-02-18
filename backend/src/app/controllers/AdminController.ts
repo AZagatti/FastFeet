@@ -1,7 +1,7 @@
 import { Response, Request } from 'express';
 import * as Yup from 'yup';
 
-import User from 'app/models/User';
+import User from 'app/models/Admin';
 
 class UserController {
   public async store(req: Request, res: Response): Promise<Response> {

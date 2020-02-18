@@ -1,12 +1,12 @@
 import { Sequelize, Options } from 'sequelize';
 
 import databaseConfig from 'config/database';
-import User from '../app/models/User';
+import Admin from '../app/models/Admin';
 import Recipient from '../app/models/Recipient';
+import Deliveryman from '../app/models/Deliveryman';
+import File from '../app/models/File';
 
-const models = [User, Recipient];
-
-const { database, username, password } = databaseConfig;
+export const models = [Admin, Recipient, Deliveryman, File];
 
 class Database {
   public connection: Sequelize;
@@ -16,14 +16,13 @@ class Database {
   }
 
   init(): void {
-    this.connection = new Sequelize(
-      database,
-      username,
-      password,
-      databaseConfig as Options,
-    );
+    this.connection = new Sequelize(databaseConfig as Options);
 
-    models.map((model) => model.init(this.connection));
+    models
+      .map((model) => model.init(this.connection))
+      .map(
+        (model) => model.associate && model.associate(this.connection.models),
+      );
   }
 }
 
