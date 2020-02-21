@@ -1,7 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 import bcrypt from 'bcryptjs';
 
-interface UserInterface {
+interface IAdmin {
   id: number;
   name: string;
   email: string;
@@ -11,7 +11,7 @@ interface UserInterface {
   updated_at: Date;
 }
 
-class User extends Model<UserInterface> {
+class Admin extends Model<IAdmin> {
   public id!: number;
 
   public name!: string;
@@ -41,9 +41,9 @@ class User extends Model<UserInterface> {
       },
     );
 
-    this.addHook('beforeSave', async (user: User) => {
-      if (user.password) {
-        user.password_hash = await bcrypt.hash(user.password, 8);
+    this.addHook('beforeSave', async (admin: Admin) => {
+      if (admin.password) {
+        admin.password_hash = await bcrypt.hash(admin.password, 8);
       }
     });
 
@@ -55,4 +55,4 @@ class User extends Model<UserInterface> {
   }
 }
 
-export default User;
+export default Admin;

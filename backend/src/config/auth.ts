@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 if (!process.env.AUTH_SECRET) {
   throw new Error('process.env.AUTH_SECRET not exists');
 }

@@ -1,9 +1,9 @@
 import { Response, Request } from 'express';
 import * as Yup from 'yup';
 
-import User from 'app/models/Admin';
+import Admin from 'app/models/Admin';
 
-class UserController {
+class AdminController {
   public async store(req: Request, res: Response): Promise<Response> {
     const schema = Yup.object().shape({
       name: Yup.string().required(),
@@ -19,13 +19,15 @@ class UserController {
       return res.status(400).json({ error: 'Validation fails' });
     }
 
-    const userExists = await User.findOne({ where: { email: req.body.email } });
+    const adminExists = await Admin.findOne({
+      where: { email: req.body.email },
+    });
 
-    if (userExists) {
-      return res.status(400).json({ error: 'User already exists' });
+    if (adminExists) {
+      return res.status(400).json({ error: 'Admin already exists' });
     }
 
-    const { id, name, email } = await User.create(req.body);
+    const { id, name, email } = await Admin.create(req.body);
 
     return res.json({
       id,
@@ -35,4 +37,4 @@ class UserController {
   }
 }
 
-export default new UserController();
+export default new AdminController();
