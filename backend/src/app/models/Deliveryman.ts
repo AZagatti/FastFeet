@@ -31,7 +31,12 @@ class Deliveryman extends Model<IDeliveryman> {
     super.init.call(
       this,
       {
-        id: Sequelize.NUMBER,
+        id: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+        },
         name: Sequelize.STRING,
         avatar_id: Sequelize.NUMBER,
         email: Sequelize.STRING,
