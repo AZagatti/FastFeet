@@ -21,7 +21,7 @@ class DeliverymanController {
     });
 
     if (deliverymanExists) {
-      return res.status(400).json({ error: 'Email already register' });
+      return res.status(400).json({ error: 'Email already exists.' });
     }
 
     const { name, email } = await Deliveryman.create(req.body);
@@ -36,7 +36,48 @@ class DeliverymanController {
   }
 
   public async update(req: Request, res: Response): Promise<Response> {
-    return res.json({ ok: true });
+    const schema = Yup.object().shape({
+      name: Yup.string().required(),
+      email: Yup.string()
+        .email()
+        .required(),
+    });
+
+    if (!(await schema.isValid(req.body))) {
+      return res.status(400).json({ error: 'Validation fails' });
+    }
+
+    const { email } = req.body;
+
+    const deliveryman = await Deliveryman.findByPk(req.params.id);
+
+    if (!deliveryman) {
+      return res.status(400).json({ error: 'Deliveryman not found' });
+    }
+
+    if (email && email !== deliveryman?.email) {
+      const deliverymanExists = Deliveryman.findOne({ where: { email } });
+
+      if (deliverymanExists) {
+        return res.status(400).json({ error: 'Email already exists.' });
+      }
+    }
+
+    const { name, email: emailAtt } = await deliveryman?.update(req.body);
+
+    return res.json({ name, emailAtt });
+  }
+
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const deliveryman = await Deliveryman.findByPk(req.params.id);
+
+    if (!deliveryman) {
+      res.status(400).json({ error: 'Not found deliveryman' });
+    }
+
+    await deliveryman?.destroy();
+
+    return res.json();
   }
 }
 
