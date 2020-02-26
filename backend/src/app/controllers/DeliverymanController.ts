@@ -56,7 +56,7 @@ class DeliverymanController {
     }
 
     if (email && email !== deliveryman?.email) {
-      const deliverymanExists = Deliveryman.findOne({ where: { email } });
+      const deliverymanExists = await Deliveryman.findOne({ where: { email } });
 
       if (deliverymanExists) {
         return res.status(400).json({ error: 'Email already exists.' });
@@ -65,7 +65,7 @@ class DeliverymanController {
 
     const { name, email: emailAtt } = await deliveryman?.update(req.body);
 
-    return res.json({ name, emailAtt });
+    return res.json({ name, email: emailAtt });
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {
