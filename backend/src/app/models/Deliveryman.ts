@@ -1,9 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
 
-interface IAssociable {
-  associate: (model: any) => void;
-}
-
 interface IDeliveryman {
   id: number;
   name: string;
@@ -32,7 +28,6 @@ class Deliveryman extends Model<IDeliveryman> {
       this,
       {
         name: Sequelize.STRING,
-        avatar_id: Sequelize.NUMBER,
         email: Sequelize.STRING,
       },
       {
@@ -43,6 +38,7 @@ class Deliveryman extends Model<IDeliveryman> {
     return this;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public static associate(models: any) {
     this.belongsTo(models.File, { foreignKey: 'avatar_id', as: 'avatar' });
   }
