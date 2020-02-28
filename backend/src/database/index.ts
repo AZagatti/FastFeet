@@ -5,8 +5,9 @@ import Admin from '../app/models/Admin';
 import Recipient from '../app/models/Recipient';
 import Deliveryman from '../app/models/Deliveryman';
 import File from '../app/models/File';
+import Order from '../app/models/Order';
 
-const models = [Admin, Recipient, Deliveryman, File];
+const models = [Admin, Recipient, Deliveryman, File, Order];
 
 class Database {
   public connection: Sequelize;
@@ -21,6 +22,7 @@ class Database {
     models
       .map((model) => model.init(this.connection))
       .map(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (model: any) =>
           model.associate && model.associate(this.connection.models),
       );
