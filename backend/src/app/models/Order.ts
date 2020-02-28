@@ -1,9 +1,16 @@
 import Sequelize, { Model } from 'sequelize';
 
 interface IOrder {
-  name: string;
-  path: string;
-  url: string;
+  id: number;
+  recipient_id: number;
+  deliveryman_id: number;
+  signature_id: number;
+  product: string;
+  canceled_at: Date;
+  start_date: Date;
+  end_date: Date;
+  created_at: Date;
+  updated_at: Date;
 }
 
 class Order extends Model<IOrder> {
