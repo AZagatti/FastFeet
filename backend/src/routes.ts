@@ -8,6 +8,7 @@ import DeliverymanController from 'app/controllers/DeliverymanController';
 import OrderController from 'app/controllers/OrderController';
 import OpenDeliveryController from 'app/controllers/OpenDeliveryController';
 import DeliveredController from 'app/controllers/DeliveredController';
+import StartDeliveryController from 'app/controllers/StartDeliveryController';
 
 const routes = Router();
 
@@ -22,6 +23,11 @@ routes.get(
 routes.get(
   '/deliveryman/:deliverymanId/deliveries/delivered',
   DeliveredController.index,
+);
+
+routes.put(
+  '/deliveryman/:deliverymanId/deliveries/:deliveryId/start',
+  StartDeliveryController.update,
 );
 
 routes.use(auth);
