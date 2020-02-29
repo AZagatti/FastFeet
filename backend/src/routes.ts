@@ -6,11 +6,23 @@ import SessionController from 'app/controllers/SessionController';
 import RecipientController from 'app/controllers/RecipientController';
 import DeliverymanController from 'app/controllers/DeliverymanController';
 import OrderController from 'app/controllers/OrderController';
+import OpenDeliveryController from 'app/controllers/OpenDeliveryController';
+import DeliveredController from 'app/controllers/DeliveredController';
 
 const routes = Router();
 
 routes.post('/admin', AdminController.store);
 routes.post('/sessions', SessionController.store);
+
+routes.get(
+  '/deliveryman/:deliverymanId/deliveries',
+  OpenDeliveryController.index,
+);
+
+routes.get(
+  '/deliveryman/:deliverymanId/deliveries/delivered',
+  DeliveredController.index,
+);
 
 routes.use(auth);
 
