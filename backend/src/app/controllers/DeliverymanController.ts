@@ -37,10 +37,8 @@ class DeliverymanController {
 
   public async update(req: Request, res: Response): Promise<Response> {
     const schema = Yup.object().shape({
-      name: Yup.string().required(),
-      email: Yup.string()
-        .email()
-        .required(),
+      name: Yup.string(),
+      email: Yup.string().email(),
     });
 
     if (!(await schema.isValid(req.body))) {
@@ -63,9 +61,11 @@ class DeliverymanController {
       }
     }
 
-    const { name, email: emailAtt } = await deliveryman?.update(req.body);
+    const { name, email: emailAtt, avatar_id } = await deliveryman?.update(
+      req.body,
+    );
 
-    return res.json({ name, email: emailAtt });
+    return res.json({ name, email: emailAtt, avatar_id });
   }
 
   public async delete(req: Request, res: Response): Promise<Response> {

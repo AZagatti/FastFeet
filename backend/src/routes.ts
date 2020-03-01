@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import multer from 'multer';
 
 import auth from 'app/middlewares/auth';
 import AdminController from 'app/controllers/AdminController';
@@ -9,8 +10,13 @@ import OrderController from 'app/controllers/OrderController';
 import OpenDeliveryController from 'app/controllers/OpenDeliveryController';
 import DeliveredController from 'app/controllers/DeliveredController';
 import StartDeliveryController from 'app/controllers/StartDeliveryController';
+import EndDeliveryController from 'app/controllers/EndDeliveryController';
+import FileController from 'app/controllers/FileController';
+
+import multerConfig from 'config/multer';
 
 const routes = Router();
+const upload = multer(multerConfig);
 
 routes.post('/admin', AdminController.store);
 routes.post('/sessions', SessionController.store);
@@ -30,6 +36,11 @@ routes.put(
   StartDeliveryController.update,
 );
 
+routes.put(
+  '/deliveryman/:deliverymanId/deliveries/:deliveryId/end',
+  EndDeliveryController.update,
+);
+
 routes.use(auth);
 
 routes.post('/recipients', RecipientController.store);
@@ -44,5 +55,7 @@ routes.get('/orders', OrderController.index);
 routes.post('/orders', OrderController.store);
 routes.put('/orders/:id', OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
+
+routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;
