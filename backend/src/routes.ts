@@ -12,6 +12,7 @@ import DeliveredController from 'app/controllers/DeliveredController';
 import StartDeliveryController from 'app/controllers/StartDeliveryController';
 import EndDeliveryController from 'app/controllers/EndDeliveryController';
 import FileController from 'app/controllers/FileController';
+import DeliveryProblemController from 'app/controllers/DeliveryProblemController';
 
 import multerConfig from 'config/multer';
 
@@ -39,6 +40,14 @@ routes.put(
 routes.put(
   '/deliveryman/:deliverymanId/deliveries/:deliveryId/end',
   EndDeliveryController.update,
+);
+
+routes.get('/delivery/problems', DeliveryProblemController.index);
+routes.get('/delivery/:deliveryId/problems', DeliveryProblemController.show);
+routes.post('/delivery/:deliveryId/problems', DeliveryProblemController.store);
+routes.delete(
+  '/problem/:deliveryProblemId/cancel-delivery',
+  DeliveryProblemController.delete,
 );
 
 routes.use(auth);
