@@ -5,14 +5,18 @@ import * as Yup from 'yup';
 import Order from 'app/models/Order';
 import DeliveryProblem from 'app/models/DeliveryProblem';
 
+import CancellationMail from 'app/jobs/CancellationMail';
+import Queue from 'lib/Queue';
+import Deliveryman from 'app/models/Deliveryman';
+
 class DeliveryProblemController {
   public async index(req: Request, res: Response): Promise<Response> {
     const { page = 1 } = req.query;
 
-    const problems = await DeliveryProblem.findOne({
+    const problems = await DeliveryProblem.findAll({
       limit: 20,
       offset: (page - 1) * 20,
-      attributes: ['id', 'created_at', 'updated_at'],
+      attributes: ['id', 'delivery_id', 'created_at', 'updated_at'],
       where: {
         description: {
           [Op.ne]: null,
@@ -33,6 +37,7 @@ class DeliveryProblemController {
           ],
         },
       ],
+      group: ['delivery.id', 'DeliveryProblem.id'],
     });
 
     return res.json(problems);
@@ -117,6 +122,13 @@ class DeliveryProblemController {
     });
 
     order.save();
+
+    const deliveryman = await Deliveryman.findByPk(order.deliveryman_id);
+
+    await Queue.add(CancellationMail.key, {
+      deliveryman,
+      order,
+    });
 
     return res.json(order);
   }

@@ -1,4 +1,4 @@
-import Bee from 'bee-queue';
+import Bee, { Job } from 'bee-queue';
 
 import CancellationMail from 'app/jobs/CancellationMail';
 import OrderMail from 'app/jobs/OrderMail';
@@ -6,8 +6,20 @@ import redisConfig from '../config/redis';
 
 const jobs = [CancellationMail, OrderMail];
 
-class Queue {
-  private queues: object;
+interface IQueues {
+  [key: string]: {
+    bee: Bee;
+    handle(data: {} | undefined): void;
+  };
+}
+
+interface IQueue {
+  add(queue: string, job: {}): Promise<Job>;
+  processQueue(): void;
+}
+
+class Queue implements IQueue {
+  public queues: IQueues;
 
   constructor() {
     this.queues = {};
@@ -26,7 +38,7 @@ class Queue {
     });
   }
 
-  add(queue, job) {
+  add(queue: string, job: {}) {
     return this.queues[queue].bee.createJob(job).save();
   }
 
@@ -38,7 +50,7 @@ class Queue {
     });
   }
 
-  handleFailure(job, err) {
+  handleFailure(job: Job, err: any) {
     console.log(`Queue ${job.queue.name}: FAILED`, err);
   }
 }

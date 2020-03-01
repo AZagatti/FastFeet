@@ -10,7 +10,7 @@ class OrderMail {
 
     await Mail.sendMail({
       to: `${deliveryman.name} <${deliveryman.email}>`,
-      subject: 'Entrega cancelada',
+      subject: 'Aviso de entrega',
       template: 'order',
       context: {
         deliveryman: deliveryman.name,

@@ -5,6 +5,9 @@ import Recipient from 'app/models/Recipient';
 import Deliveryman from 'app/models/Deliveryman';
 import Order from 'app/models/Order';
 
+import OrderMail from 'app/jobs/OrderMail';
+import Queue from 'lib/Queue';
+
 class OrderController {
   public async index(req: Request, res: Response): Promise<Response> {
     const orders = await Order.findAll();
@@ -25,9 +28,9 @@ class OrderController {
 
     const { recipient_id, deliveryman_id, product } = req.body;
 
-    const deliverymanExists = await Deliveryman.findByPk(deliveryman_id);
+    const deliveryman = await Deliveryman.findByPk(deliveryman_id);
 
-    if (!deliverymanExists) {
+    if (!deliveryman) {
       return res.status(400).json({ error: 'Deliveryman does not exists' });
     }
 
@@ -40,6 +43,11 @@ class OrderController {
     const order = await Order.create({
       deliveryman_id,
       recipient_id,
+      product,
+    });
+
+    await Queue.add(OrderMail.key, {
+      deliveryman,
       product,
     });
 
