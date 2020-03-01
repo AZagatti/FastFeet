@@ -18,7 +18,7 @@
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/AZagatti/FastFeet/master?style=plastic">
   </a>
   
-  <img alt="GitHub" src="https://img.shields.io/github/license/AZagatti/FastFeet?style=plastic">   
+  <img alt="License" src="https://img.shields.io/github/license/AZagatti/FastFeet?style=plastic">   
 </p>
 
 <p align="center">
