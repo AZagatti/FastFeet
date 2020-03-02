@@ -18,8 +18,14 @@
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/AZagatti/FastFeet/master?style=plastic">
   </a>
   
-  <img alt="License" src="https://img.shields.io/github/license/AZagatti/FastFeet?style=plastic">   
+  <img alt="License" src="https://img.shields.io/github/license/AZagatti/FastFeet?style=plastic">
 </p>
+
+<div align="center">
+
+[![Run in Insomnia}](https://insomnia.rest/images/run.svg)](https://insomnia.rest/run/?label=FastFeet&uri=https%3A%2F%2Fres.cloudinary.com%2Fzagatti%2Fraw%2Fupload%2Fv1583112144%2Fimsomnia%2FFastfeet_t1copk.json)
+
+</div>
 
 <p align="center">
   <a href="#-api-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
