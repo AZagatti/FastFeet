@@ -50,6 +50,8 @@ routes.delete(
   DeliveryProblemController.delete,
 );
 
+routes.post('/files', upload.single('file'), FileController.store);
+
 routes.use(auth);
 
 routes.post('/recipients', RecipientController.store);
@@ -64,7 +66,5 @@ routes.get('/orders', OrderController.index);
 routes.post('/orders', OrderController.store);
 routes.put('/orders/:id', OrderController.update);
 routes.delete('/orders/:id', OrderController.delete);
-
-routes.post('/files', upload.single('file'), FileController.store);
 
 export default routes;
