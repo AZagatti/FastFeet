@@ -19,6 +19,8 @@
   </a>
   
   <img alt="License" src="https://img.shields.io/github/license/AZagatti/FastFeet?style=plastic">
+
+  <img alt="Code Quality" src="https://img.shields.io/codacy/grade/d1ba1117866e4ca38c45c88912ac5f8d?style=plastic">
 </p>
 
 <div align="center">
